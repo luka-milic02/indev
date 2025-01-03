@@ -1,11 +1,13 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 
 include('includes/config.php');
 include('includes/database.php');
 include('includes/functions.php');
 include('includes/header.php');
+
+if (isset($_SESSION['id'])) {
+    header('Location: dashboard.php');
+}
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
     // Prepare the query to get the user by username
@@ -22,7 +24,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             $_SESSION['id'] = $user['id'];
             $_SESSION['email'] = $user['email']; // Fixed the missing equals sign
             $_SESSION['username'] = $user['username'];
-
+            
+            set_message("You have successfuly logged in!" . $_SESSION['username']);
             header('Location: dashboard.php');
             
             echo "<h1>You are logged in!</h1>";

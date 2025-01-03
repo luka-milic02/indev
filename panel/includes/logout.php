@@ -1,5 +1,8 @@
 <?php
 
-echo "<h1>You are on the logout page</h1>";
+include('config.php');
 
+session_destroy();
+
+header('Location: ../index.php');
 ?>
