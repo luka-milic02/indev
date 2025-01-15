@@ -1,26 +1,28 @@
 <?php
 
 // Includes
-include('../includes/config.php');
-include('../includes/database.php');
-include('../includes/functions.php');
-include('../includes/header.php');
+define('BASE_PATH', $_SERVER['DOCUMENT_ROOT']);
+
+include(BASE_PATH . '/panel/includes/config.php');
+include(BASE_PATH . '/panel/includes/database.php');
+include(BASE_PATH . '/panel/includes/functions.php');
+include(BASE_PATH . '/panel/includes/header.php');
 
 // Security Check
 secure();
 
-// Check if user ID is provided
+// Check if post ID is provided
 if (isset($_GET['id'])) {
-    // Fetch user details
-    if ($stm = $connect->prepare('SELECT * FROM users WHERE id = ?')) { 
-        $stm->bind_param('s', $_GET['id']);
+    // Fetch post details
+    if ($stm = $connect->prepare('SELECT * FROM posts WHERE id = ?')) {
+        $stm->bind_param('i', $_GET['id']);
         $stm->execute();
         $result = $stm->get_result();
-        $user = $result->fetch_assoc();
+        $post = $result->fetch_assoc();
         $stm->close();
-        
-        if (!$user) {
-            echo 'No user found!';
+
+        if (!$post) {
+            echo 'No post found!';
             die();
         }
     } else {
@@ -28,58 +30,75 @@ if (isset($_GET['id'])) {
         die();
     }
 } else {
-    echo 'No user ID provided!';
+    echo 'No post ID provided!';
+    die();
+}
+
+// Fetch active users for dropdown
+if ($stm = $connect->prepare('SELECT id, username FROM users WHERE active = 1')) {
+    $stm->execute();
+    $users = $stm->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stm->close();
+} else {
+    echo 'Could not fetch users!';
     die();
 }
 
 // Process form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
-    // Check if password is updated
-    if (!empty($_POST['password'])) {
-        $hashed = password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 10]);
-    } else {
-        // Use existing password if not changed
-        $hashed = $user['password'];
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title'])) {
+    $title = trim($_POST['title']);
+    $content = trim($_POST['content']);
+    $author = !empty($_POST['author']) ? $_POST['author'] : $post['author'];
+    $date = !empty($_POST['date']) ? $_POST['date'] : $post['date'];
+    $added = date('Y-m-d H:i:s'); // Updated timestamp
 
-    // Update user details
-    if ($stm = $connect->prepare('UPDATE users SET username = ?, email = ?, password = ?, active = ? WHERE id = ?')) {
-        $stm->bind_param('ssssi', $_POST['username'], $_POST['email'], $hashed, $_POST['active'], $_GET['id']);
-        $stm->execute();
-        $stm->close();
-        
-        set_message("User " . $_POST['username'] . " has been updated");
-        header('Location: ../users.php');
-        die();
+    if (!empty($title) && !empty($content)) {
+        // Update post details
+        if ($stm = $connect->prepare('UPDATE posts SET title = ?, content = ?, author = ?, date = ?, added = ? WHERE id = ?')) {
+            $stm->bind_param('sssssi', $title, $content, $author, $date, $added, $_GET['id']);
+            $stm->execute();
+            $stm->close();
+
+            set_message("Post \"$title\" has been updated");
+            header('Location: ../posts.php');
+            die();
+        } else {
+            echo 'Could not prepare update statement!';
+            die();
+        }
     } else {
-        echo 'Could not prepare update statement!';
-        die();
+        echo 'Please fill in all required fields!';
     }
 }
+
 ?>
 
 <div class="container">
-    <h1>Edit User</h1>
+    <h1>Edit Post</h1>
     <ul>
-        <li><a href="../users.php">Back</a></li>
+        <li><a href="../posts.php">Back</a></li>
     </ul>
     <div>
         <form method="post">
-            <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required><br>
-            
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required><br>
-            
-            <label for="password">Password (leave blank to keep current):</label><br>
-            <input type="password" id="password" name="password"><br>
-            
-            <label for="active">Active:</label><br>
-            <select id="active" name="active">
-                <option value="1" <?php if ($user['active'] == 1) echo 'selected'; ?>>Yes</option>
-                <option value="0" <?php if ($user['active'] == 0) echo 'selected'; ?>>No</option>
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br>
+
+            <label for="content">Content:</label><br>
+            <textarea id="content" name="content" rows="5" required><?php echo htmlspecialchars($post['content']); ?></textarea><br>
+
+            <label for="author">Author:</label><br>
+            <select id="author" name="author">
+                <option value="">-- Select Author --</option>
+                <?php foreach ($users as $user): ?>
+                    <option value="<?php echo $user['username']; ?>" <?php if ($post['author'] == $user['username']) echo 'selected'; ?>>
+                        <?php echo htmlspecialchars($user['username']); ?>
+                    </option>
+                <?php endforeach; ?>
             </select><br>
-            
+
+            <label for="date">Date (optional):</label><br>
+            <input type="date" id="date" name="date" value="<?php echo htmlspecialchars($post['date']); ?>"><br>
+
             <input type="submit" value="Save Changes">
         </form>
     </div>

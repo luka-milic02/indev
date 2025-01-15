@@ -1,9 +1,11 @@
 <?php
 
-include('includes/config.php');
-include('includes/database.php');
-include('includes/functions.php');
-include('includes/header.php');
+define('BASE_PATH', $_SERVER['DOCUMENT_ROOT']);
+
+include(BASE_PATH . '/panel/includes/config.php');
+include(BASE_PATH . '/panel/includes/database.php');
+include(BASE_PATH . '/panel/includes/functions.php');
+include(BASE_PATH . '/panel/includes/header.php');
 
 if (isset($_SESSION['id'])) {
     header('Location: dashboard.php');

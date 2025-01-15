@@ -1,9 +1,11 @@
 <?php
 
-include('includes/config.php');
-include('includes/functions.php');
-include('includes/header.php');
-include('includes/database.php');
+define('BASE_PATH', $_SERVER['DOCUMENT_ROOT']);
+
+include(BASE_PATH . '/panel/includes/config.php');
+include(BASE_PATH . '/panel/includes/database.php');
+include(BASE_PATH . '/panel/includes/functions.php');
+include(BASE_PATH . '/panel/includes/header.php');
 
 
 secure();

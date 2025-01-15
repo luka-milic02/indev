@@ -63,7 +63,7 @@ if ($stm = $connect->prepare('SELECT * FROM posts')) {
                         <td>
                             <a href="./management/post_edit.php?id=<?php echo htmlspecialchars($record['id']); ?>">Edit</a> | 
                             <a href="posts.php?id=<?php echo htmlspecialchars($record['id']); ?>" 
-                               onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                               onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
