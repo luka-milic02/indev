@@ -1,12 +1,11 @@
 <?php
 
-define('BASE_PATH', $_SERVER['DOCUMENT_ROOT']);
+//Includes
+include(__DIR__ . '/includes/config.php');
 
-include(BASE_PATH . '/panel/includes/config.php');
-include(BASE_PATH . '/panel/includes/database.php');
-include(BASE_PATH . '/panel/includes/functions.php');
-include(BASE_PATH . '/panel/includes/header.php');
+var_dump(BASE_PATH);
 
+//Login
 if (isset($_SESSION['id'])) {
     header('Location: dashboard.php');
 }
@@ -44,7 +43,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     }
 }
 
-include('includes/footer.php');
+
 ?>
 
 <form method="post">
@@ -56,3 +55,6 @@ include('includes/footer.php');
     <br>
     <input type="submit" value="Login">
 </form>
+
+
+<?php include('includes/footer.php'); ?>    

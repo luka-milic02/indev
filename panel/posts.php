@@ -1,10 +1,7 @@
 <?php
 
 // Includes
-include('includes/config.php');
-include('includes/database.php');
-include('includes/functions.php');
-include('includes/header.php');
+include(__DIR__ . '/includes/config.php');
 
 // Security Check
 secure();

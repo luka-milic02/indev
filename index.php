@@ -1,4 +1,5 @@
 <?php
+
 // Check the requested URI
 $requestUri = $_SERVER['REQUEST_URI'];
 

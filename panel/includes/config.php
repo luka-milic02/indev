@@ -2,4 +2,17 @@
 
 session_start();
 
+//Path Definition for URLs
+define('BASE_URL',  'http://' . $_SERVER['HTTP_HOST']);
+
+//Includes
+// Path Definition for Includes
+define('BASE_PATH', realpath(__DIR__ . '/../..'));
+
+// Include shared resources
+include(BASE_PATH . '/panel/includes/database.php');
+include(BASE_PATH . '/panel/includes/functions.php');
+include(BASE_PATH . '/panel/includes/header.php');
+
+
 ?>
