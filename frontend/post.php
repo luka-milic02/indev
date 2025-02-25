@@ -1,7 +1,12 @@
 <?php
+
+
 // Includes
-include('../panel/includes/config.php');
-include('../panel/includes/database.php');
+// Detect the directory
+$current_dir = dirname(__FILE__);
+$is_backend = strpos($current_dir, 'panel') !== false;
+//Include the Config
+include(realpath(__DIR__ . '/../panel/includes/config.php'));
 
 // Fetch post ID from URL
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -35,7 +40,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <body>
     <h1><?php echo htmlspecialchars($post['title']); ?></h1>
     <p><em>Posted by <?php echo htmlspecialchars($post['author']); ?> on <?php echo htmlspecialchars($post['added']); ?></em></p>
-    <div><?php echo nl2br(htmlspecialchars($post['content'])); ?></div>
+    <!-- Render HTML content directly (no escaping) -->
+    <div><?php echo $post['content']; ?></div>
     <p><a href="../index.php">Back to Homepage</a></p>
 </body>
 </html>

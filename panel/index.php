@@ -1,9 +1,21 @@
 <?php
 
-//Includes
-include(__DIR__ . '/includes/config.php');
+// Define page files and configuration
+$page_title = 'Indev Login';
 
-var_dump(BASE_PATH);
+$css_files = [
+    
+];
+
+$js_files = [
+    
+];
+
+// Includes
+// Detect the directory
+$current_dir = dirname(__FILE__);
+$is_backend = strpos($current_dir, 'panel') !== false;
+include(__DIR__ . '/includes/config.php');
 
 //Login
 if (isset($_SESSION['id'])) {
@@ -57,4 +69,4 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 </form>
 
 
-<?php include('includes/footer.php'); ?>    
+<?php include(__DIR__ . '/includes/backend_footer.php'); ?> 

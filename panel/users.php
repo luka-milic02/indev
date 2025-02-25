@@ -1,6 +1,20 @@
 <?php
 
+// Define page files and configuration
+$page_title = 'User Management';
+
+$css_files = [
+    
+];
+
+$js_files = [
+    
+];
+
 // Includes
+// Detect the directory
+$current_dir = dirname(__FILE__);
+$is_backend = strpos($current_dir, 'panel') !== false;
 include(__DIR__ . '/includes/config.php');
 
 // Security Check
@@ -73,4 +87,4 @@ if ($stm = $connect->prepare('SELECT * FROM users')) {
     </div>
 </div>
 
-<?php include('includes/footer.php'); ?>
+<?php include(__DIR__ . '/includes/backend_footer.php'); ?>

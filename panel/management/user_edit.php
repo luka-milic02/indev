@@ -1,6 +1,20 @@
 <?php
 
+// Define page files and configuration
+$page_title = 'Edit User';
+
+$css_files = [
+    
+];
+
+$js_files = [
+    
+];
+
 // Includes
+// Detect the directory
+$current_dir = dirname(__FILE__);
+$is_backend = strpos($current_dir, 'panel') !== false;
 include(__DIR__ . '/../includes/config.php');
 
 // Security Check
@@ -82,4 +96,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
     </div>
 </div>
 
-<?php include('../includes/footer.php'); ?>
+<?php include(realpath(__DIR__ . '/../includes/backend_footer.php')); ?>

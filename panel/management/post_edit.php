@@ -1,6 +1,21 @@
 <?php
+// Define page files and setup
+$page_title = 'Edit Post';
+
+$css_files = [
+    '/panel/js/jodites2021/jodit.min.css',
+];
+
+$js_files = [
+    '/panel/js/jodites2021/jodit.min.js',
+    '/panel/js/jodit_setup.js'
+];
 
 // Includes
+// Detect the directory
+$current_dir = dirname(__FILE__);
+$is_backend = strpos($current_dir, 'panel') !== false;
+//Include the Config
 include(__DIR__ . '/../includes/config.php');
 
 // Security Check
@@ -65,38 +80,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title'])) {
         echo 'Please fill in all required fields!';
     }
 }
-
 ?>
 
 <div class="container">
-    <h1>Edit Post</h1>
-    <ul>
-        <li><a href="../posts.php">Back</a></li>
-    </ul>
-    <div>
-        <form method="post">
-            <label for="title">Title:</label><br>
-            <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br>
+        <h1>Edit Post</h1>
+        <ul>
+            <li><a href="../posts.php">Back</a></li>
+        </ul>
+        <div>
+            <form method="post">
+                <label for="title">Title:</label><br>
+                <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br>
 
-            <label for="content">Content:</label><br>
-            <textarea id="content" name="content" rows="5" required><?php echo htmlspecialchars($post['content']); ?></textarea><br>
+                <label for="content">Content:</label><br>
+                <!-- Replace the textarea with Jodit -->
+                <textarea id="content" name="content" rows="5"><?php echo htmlspecialchars($post['content']); ?></textarea><br>
 
-            <label for="author">Author:</label><br>
-            <select id="author" name="author">
-                <option value="">-- Select Author --</option>
-                <?php foreach ($users as $user): ?>
-                    <option value="<?php echo $user['username']; ?>" <?php if ($post['author'] == $user['username']) echo 'selected'; ?>>
-                        <?php echo htmlspecialchars($user['username']); ?>
-                    </option>
-                <?php endforeach; ?>
-            </select><br>
+                <label for="author">Author:</label><br>
+                <select id="author" name="author">
+                    <option value="">-- Select Author --</option>
+                    <?php foreach ($users as $user): ?>
+                        <option value="<?php echo $user['username']; ?>" <?php if ($post['author'] == $user['username']) echo 'selected'; ?>>
+                            <?php echo htmlspecialchars($user['username']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select><br>
 
-            <label for="date">Date (optional):</label><br>
-            <input type="date" id="date" name="date" value="<?php echo htmlspecialchars($post['date']); ?>"><br>
+                <label for="date">Date (optional):</label><br>
+                <input type="date" id="date" name="date" value="<?php echo htmlspecialchars($post['date']); ?>"><br>
 
-            <input type="submit" value="Save Changes">
-        </form>
+                <input type="submit" value="Save Changes">
+            </form>
+        </div>
     </div>
-</div>
 
-<?php include('../includes/footer.php'); ?>
+    </script>
+</body>
+</html>
+
+<?php include(realpath(__DIR__ . '/../includes/backend_footer.php')); ?>

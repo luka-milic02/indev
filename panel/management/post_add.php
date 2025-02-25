@@ -1,9 +1,24 @@
 <?php
 
+// Define page files and
+$page_title = 'Add New Post';
+
+$css_files = [
+    '/panel/js/jodites2021/jodit.min.css',
+    '/panel/css/main.css'
+];
+
+$js_files = [
+    '/panel/js/jodites2021/jodit.min.js',
+    '/panel/js/jodit_setup.js'
+];
+
 // Includes
+// Detect the directory
+$current_dir = dirname(__FILE__);
+$is_backend = strpos($current_dir, 'panel') !== false;
+//Include the Config
 include(__DIR__ . '/../includes/config.php');
-
-
 
 // Security Check
 secure();
@@ -42,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <div class="container">
-    <h1>Add Post</h1>
+    <h1 class="testclass">Add Post</h1>
     <ul>
         <li><a href="../posts.php">Back</a></li>
     </ul>
@@ -69,4 +84,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
-<?php include('../includes/footer.php'); ?>
+<?php include(realpath(__DIR__ . '/../includes/backend_footer.php')); ?>

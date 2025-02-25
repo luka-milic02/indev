@@ -12,7 +12,12 @@ define('BASE_PATH', realpath(__DIR__ . '/../..'));
 // Include shared resources
 include(BASE_PATH . '/panel/includes/database.php');
 include(BASE_PATH . '/panel/includes/functions.php');
-include(BASE_PATH . '/panel/includes/header.php');
 
+// Include the appropriate header file based on the directory
+if ($is_backend) {
+    include(BASE_PATH . '/panel/includes/backend_header.php');
+} else {
+    include(BASE_PATH . '/frontend/includes/frontend_header.php');
+}
 
 ?>
