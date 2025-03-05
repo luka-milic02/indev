@@ -10,16 +10,15 @@
     <?php endforeach; ?>
 </head>
 <body>
-    <?php
-    // Show navigation on all pages except index.php and secure.php
-    if (basename($_SERVER['PHP_SELF']) !== 'index.php' && basename($_SERVER['PHP_SELF']) !== 'secure.php'):
-    ?>
+<?php
+if ($noheader != true) {
+?>
     <header>
         <nav>
             <ul style="list-style-type: none; display: flex; gap: 10px;">
-                <li><a href="<?= BASE_URL . '/panel/dashboard.php'?>">Dashboard</a></li>
-                <li><a href="<?= BASE_URL . '/panel/includes/logout.php'?>">Logout</a></li>
+                <li><a href="/admin/dashboard">Dashboard</a></li>
+                <li><a href="/admin/logout">Logout</a></li>
             </ul>
         </nav>
     </header>
-    <?php endif; ?>
+<?php }; ?>

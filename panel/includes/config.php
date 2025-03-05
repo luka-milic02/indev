@@ -18,6 +18,8 @@ if ($is_backend) {
     include(BASE_PATH . '/panel/includes/backend_header.php');
 } else {
     include(BASE_PATH . '/frontend/includes/frontend_header.php');
-}
+};
+
+var_dump('loaded config.php');
 
 ?>

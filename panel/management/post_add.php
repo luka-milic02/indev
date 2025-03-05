@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stm->close();
 
             set_message("A new post titled '$title' has been added");
-            header('Location: ../posts.php');
+            header('Location: /admin/posts');
             exit;
         } else {
             set_message('Could not prepare insert statement!');
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container">
     <h1 class="testclass">Add Post</h1>
     <ul>
-        <li><a href="../posts.php">Back</a></li>
+        <li><a href="/admin/posts">Back</a></li>
     </ul>
     <div>
         <form method="post">
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" id="title" name="title" required><br>
 
             <label for="content">Content:</label><br>
-            <textarea id="content" name="content" rows="6" required></textarea><br>
+            <textarea id="content" name="content"></textarea><br>
 
             <label for="author">Author (select active user):</label><br>
             <select id="author" name="author">
@@ -83,5 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 </div>
+
 
 <?php include(realpath(__DIR__ . '/../includes/backend_footer.php')); ?>

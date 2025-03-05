@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stm->close();
 
                 set_message("A new user $username has been added");
-                header('Location: ../users.php');
+                header('Location: /admin/users');
                 die();
             } else {
                 echo 'Could not prepare insert statement!';
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container">
     <h1>Add User</h1>
     <ul>
-        <li><a href="../users.php">Back</a></li>
+        <li><a href="/admin/users">Back</a></li>
     </ul>
     <div>
         <form method="post">

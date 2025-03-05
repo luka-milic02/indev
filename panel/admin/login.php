@@ -12,14 +12,15 @@ $js_files = [
 ];
 
 // Includes
+$noheader = true;
 // Detect the directory
 $current_dir = dirname(__FILE__);
-$is_backend = strpos($current_dir, 'panel') !== false;
-include(__DIR__ . '/includes/config.php');
+$is_backend = strpos($current_dir, 'admin') !== false;
+include(realpath(__DIR__ . '/../includes/config.php'));
 
 //Login
 if (isset($_SESSION['id'])) {
-    header('Location: dashboard.php');
+    header('Location: /admin/dashboard');
 }
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
@@ -39,9 +40,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             $_SESSION['username'] = $user['username'];
             
             set_message("You have successfuly logged in!" . $_SESSION['username']);
-            header('Location: dashboard.php');
-            
-            echo "<h1>You are logged in!</h1>";
+
+            $_GET['url'] = 'admin/dashboard';
+
+            header('Location: /admin/dashboard');
+
         } else {
             // Incorrect password or user not found
             echo "<p>Incorrect username or password.</p>";
@@ -69,4 +72,3 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 </form>
 
 
-<?php include(__DIR__ . '/includes/backend_footer.php'); ?> 

@@ -14,8 +14,8 @@ $js_files = [
 // Includes
 // Detect the directory
 $current_dir = dirname(__FILE__);
-$is_backend = strpos($current_dir, 'panel') !== false;
-include(__DIR__ . '/includes/config.php');
+$is_backend = strpos($current_dir, 'admin') !== false;
+include(realpath(__DIR__ . '/../includes/config.php'));
 
 // Security Check
 secure();
@@ -28,7 +28,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $stm->close();
 
         set_message('Post has been deleted');
-        header('Location: posts.php');
+        header('Location: /admin/posts');
         die();
     } else {
         echo 'Could not prepare delete statement!';
@@ -51,8 +51,8 @@ if ($stm = $connect->prepare('SELECT * FROM posts')) {
 <div class="container">
     <h1>Post Management</h1>
     <ul>
-        <li><a href="dashboard.php">Dashboard</a></li>
-        <li><a href="users.php">User Management</a></li>
+        <li><a href="/admin/dashboard">Dashboard</a></li>
+        <li><a href="/admin/users">User Management</a></li>
     </ul>
     <div>
         <table>
@@ -72,8 +72,8 @@ if ($stm = $connect->prepare('SELECT * FROM posts')) {
                         <td><?php echo htmlspecialchars($record['content']); ?></td>
                         <td><?php echo htmlspecialchars($record['date']); ?></td>
                         <td>
-                            <a href="./management/post_edit.php?id=<?php echo htmlspecialchars($record['id']); ?>">Edit</a> | 
-                            <a href="posts.php?id=<?php echo htmlspecialchars($record['id']); ?>" 
+                            <a href="editpost?id=<?php echo htmlspecialchars($record['id']); ?>">Edit</a> | 
+                            <a href="posts?id=<?php echo htmlspecialchars($record['id']); ?>" 
                                onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
                         </td>
                     </tr>
@@ -84,7 +84,7 @@ if ($stm = $connect->prepare('SELECT * FROM posts')) {
                 </tr>
             <?php endif; ?>
         </table>
-        <a href="./management/post_add.php">Add Post</a>
+        <a href="/admin/addpost">Add Post</a>
     </div>
 </div>
 

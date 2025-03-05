@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title'])) {
 <div class="container">
         <h1>Edit Post</h1>
         <ul>
-            <li><a href="../posts.php">Back</a></li>
+            <li><a href="/admin/posts">Back</a></li>
         </ul>
         <div>
             <form method="post">

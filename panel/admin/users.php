@@ -1,5 +1,6 @@
 <?php
 
+
 // Define page files and configuration
 $page_title = 'User Management';
 
@@ -15,7 +16,7 @@ $js_files = [
 // Detect the directory
 $current_dir = dirname(__FILE__);
 $is_backend = strpos($current_dir, 'panel') !== false;
-include(__DIR__ . '/includes/config.php');
+include(realpath(__DIR__ . '/../includes/config.php'));
 
 // Security Check
 secure();
@@ -28,7 +29,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $stm->close();
 
         set_message('User has been deleted');
-        header('Location: users.php');
+        header('Location: /admin/users');
         die();
     } else {
         echo 'Could not prepare delete statement!';
@@ -51,8 +52,8 @@ if ($stm = $connect->prepare('SELECT * FROM users')) {
 <div class="container">
     <h1>User Management</h1>
     <ul>
-        <li><a href="dashboard.php">Dashboard</a></li>
-        <li><a href="posts.php">Post Management</a></li>
+        <li><a href="/admin/dashboard">Dashboard</a></li>
+        <li><a href="/admin/posts">Post Management</a></li>
     </ul>
     <div>
         <table>
@@ -71,8 +72,8 @@ if ($stm = $connect->prepare('SELECT * FROM users')) {
                         <td><?php echo htmlspecialchars($record['email']); ?></td>
                         <td><?php echo $record['active'] ? 'Active' : 'Inactive'; ?></td>
                         <td>
-                            <a href="./management/user_edit.php?id=<?php echo htmlspecialchars($record['id']); ?>">Edit</a> | 
-                            <a href="users.php?id=<?php echo htmlspecialchars($record['id']); ?>" 
+                            <a href="edituser?id=<?php echo htmlspecialchars($record['id']); ?>">Edit</a> | 
+                            <a href="users?id=<?php echo htmlspecialchars($record['id']); ?>" 
                                onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
                         </td>
                     </tr>
@@ -83,7 +84,7 @@ if ($stm = $connect->prepare('SELECT * FROM users')) {
                 </tr>
             <?php endif; ?>
         </table>
-        <a href="./management/user_add.php">Add User</a>
+        <a href="/admin/adduser">Add User</a>
     </div>
 </div>
 

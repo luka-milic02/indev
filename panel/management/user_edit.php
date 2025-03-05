@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
         $stm->close();
         
         set_message("User " . $_POST['username'] . " has been updated");
-        header('Location: ../users.php');
+        header('Location: /admin/users');
         die();
     } else {
         echo 'Could not prepare update statement!';
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
 <div class="container">
     <h1>Edit User</h1>
     <ul>
-        <li><a href="../users.php">Back</a></li>
+        <li><a href="/admin/users">Back</a></li>
     </ul>
     <div>
         <form method="post">

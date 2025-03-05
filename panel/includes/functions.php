@@ -5,7 +5,7 @@ function secure() {
     // Check if the session ID is set (indicating the user is logged in)
     if (!isset($_SESSION['id'])) {
         set_message('Please, log in first!');  // Set the message
-        header('Location: secure.php');         // Redirect to login page
+        header('Location: /secure/');         // Redirect to login page
         exit();                                // Stop further script execution
     }
 };
