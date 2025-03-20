@@ -4,23 +4,23 @@ $requestUri = isset($_GET['url']) ? $_GET['url'] : '/';
 
 // Define routes
 $routes = [
-    //Function Paged
-    'secure/' => 'panel/admin/secure.php',
-    'admin/logout' => 'panel/includes/logout.php',
+    // Function Pages
+    'secure' => 'panel/admin/secure.php',
+    'admin/logout' => 'panel/endpoints/logout_ep.php',
     
-    //Frontend Pages    
+    // Frontend Pages    
     '/' => 'frontend/index.php',          // Frontend homepage
     
-    //Backend Pages
-    'admin/' => 'panel/admin/login.php',                            // Login
+    // Backend Pages
+    'admin' => 'panel/admin/login.php',                            // Login
     'admin/dashboard' => 'panel/admin/dashboard.php',               // Dashboard
-    //Management
+    // Management
     'admin/users' => 'panel/admin/users.php',                       // User Management
     'admin/posts' => 'panel/admin/posts.php',                       // Post Management
-    'admin/editpost' => 'panel/management/post_edit.php',           // Post Add
-    'admin/addpost' => 'panel/management/post_add.php',             // Post Edit
-    'admin/adduser' => 'panel/management/user_add.php',             // User Add
-    'admin/edituser' => 'panel/management/user_edit.php',           // User Edit
+    'admin/editpost' => 'panel/admin/post_edit.php',           // Post Edit
+    'admin/addpost' => 'panel/admin/post_add.php',             // Post Add
+    'admin/adduser' => 'panel/admin/user_add.php',             // User Add
+    'admin/edituser' => 'panel/admin/user_edit.php',           // User Edit
 ];
 
 // Load the requested page

@@ -16,6 +16,9 @@ $current_dir = dirname(__FILE__);
 $is_backend = strpos($current_dir, 'admin') !== false;
 include(realpath(__DIR__ . '/../../panel/includes/config.php'));
 
+//Endpoints
+include(realpath(__DIR__ . '/../../panel/endpoints/testendpoint.php'));
+
 //Security Check
 secure();
 

@@ -20,32 +20,10 @@ include(realpath(__DIR__ . '/../includes/config.php'));
 // Security Check
 secure();
 
-// Post Deletion
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    if ($stm = $connect->prepare('DELETE FROM posts WHERE id = ?')) {
-        $stm->bind_param('i', $_GET['id']);
-        $stm->execute();
-        $stm->close();
+//Endpoints
+include(realpath(__DIR__ . '/../../panel/endpoints/post_fetch_ep.php'));
+include(realpath(__DIR__ . '/../../panel/endpoints/post_delete_ep.php'));
 
-        set_message('Post has been deleted');
-        header('Location: /admin/posts');
-        die();
-    } else {
-        echo 'Could not prepare delete statement!';
-        die();
-    }
-}
-
-// Fetch Posts
-if ($stm = $connect->prepare('SELECT * FROM posts')) {
-    $stm->execute();
-    $result = $stm->get_result();
-    $users = $result->fetch_all(MYSQLI_ASSOC);  // Fetch all users at once
-    $stm->close();
-} else {
-    echo 'Could not prepare select statement!';
-    die();
-}
 ?>
 
 <div class="container">
