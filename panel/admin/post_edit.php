@@ -40,7 +40,7 @@ include(realpath(__DIR__ . '/../../panel/endpoints/post_edit_ep.php'));
 
                 <label for="content">Content:</label><br>
                 <!-- Replace the textarea with Jodit -->
-                <textarea id="content" name="content" rows="5"><?php echo htmlspecialchars($post['content']); ?></textarea><br>
+                <textarea id="editor" name="content" rows="5"><?php echo htmlspecialchars($post['content']); ?></textarea><br>
 
                 <label for="author">Author:</label><br>
                 <select id="author" name="author">
@@ -60,8 +60,37 @@ include(realpath(__DIR__ . '/../../panel/endpoints/post_edit_ep.php'));
         </div>
     </div>
 
-    </script>
-</body>
-</html>
+<script>
+console.log('jodit_setup.js is running');
+
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOM fully loaded. Initializing Jodit editor...');
+
+    if (typeof Jodit === 'undefined') {
+        console.error('Jodit library is not loaded.');
+        return;
+    }
+
+    var editor = new Jodit("#editor", {
+    uploader: {
+        url: "/panel/endpoints/jodit_upload_ep.php",
+        format: "json",
+        isSuccess: function (resp) {
+            return resp.success; // Jodit expects a 'success' key in the response
+        },
+        getMessage: function (resp) {
+            return resp.error || "Upload failed";
+        }
+    },
+    filebrowser: {
+        ajax: {
+            url: "/panel/endpoints/jodit_upload_ep.php",
+        }
+    }
+});
+
+    console.log('Jodit editor initialized successfully.');
+});
+</script>
 
 <?php include(realpath(__DIR__ . '/../includes/backend_footer.php')); ?>

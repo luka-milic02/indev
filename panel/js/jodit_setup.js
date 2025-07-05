@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const editor = new Jodit('#content', {
         uploader: {
-            url: '../endpoints/image_upload.php',
+            url: '/../endpoints/media_upload_epind',
         },
         height: 500,
     });

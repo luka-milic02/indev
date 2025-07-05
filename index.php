@@ -12,15 +12,17 @@ $routes = [
     '/' => 'frontend/index.php',          // Frontend homepage
     
     // Backend Pages
-    'admin' => 'panel/admin/login.php',                            // Login
+    'admin' => 'panel/admin/login.php',                             // Login
     'admin/dashboard' => 'panel/admin/dashboard.php',               // Dashboard
+    'admin/media' => 'panel/admin/medialib.php',                    // Media Library
     // Management
     'admin/users' => 'panel/admin/users.php',                       // User Management
     'admin/posts' => 'panel/admin/posts.php',                       // Post Management
-    'admin/editpost' => 'panel/admin/post_edit.php',           // Post Edit
-    'admin/addpost' => 'panel/admin/post_add.php',             // Post Add
-    'admin/adduser' => 'panel/admin/user_add.php',             // User Add
-    'admin/edituser' => 'panel/admin/user_edit.php',           // User Edit
+    'admin/editpost' => 'panel/admin/post_edit.php',                // Post Edit
+    'admin/addpost' => 'panel/admin/post_add.php',                  // Post Add
+    'admin/adduser' => 'panel/admin/user_add.php',                  // User Add
+    'admin/edituser' => 'panel/admin/user_edit.php',                // User Edit
+    'endpoints/image_upload.php' => 'panel/endpoints/media_upload_ep.php',
 ];
 
 // Load the requested page
